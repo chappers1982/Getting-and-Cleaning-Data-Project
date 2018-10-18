@@ -8,3 +8,5 @@ The R script, `run_analysis.R`, does the following:
    variable for each subject and activity pair.
 
 The output is a file `tidy.txt`.
+
+There is a codebook I created using a handy package called "dataMaid"
