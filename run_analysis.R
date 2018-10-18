@@ -3,31 +3,28 @@
 setwd("./Getting_and_cleaning/Getting-and-Cleaning-Data-Project")
 
 
-filename <- "project_dataset.zip"
+
 install.packages("reshape2")
 library(reshape2)
+install.packages("dataMaid")
+library(dataMaid)
+filename <- "project_dataset.zip"
 
-
-## Download and unzip the dataset:
+# download the data:
 
 if (!file.exists(filename)){
-  
   fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip "
-  
   download.file(fileURL, filename, method="curl")
   
 }  
 
 if (!file.exists("UCI HAR Dataset")) { 
-  
   unzip(filename) 
-  
 }
 
 
 
-# Load activity labels + features
-
+# Get the activity and feature tables
 activityLabels <- read.table("UCI HAR Dataset/activity_labels.txt")
 
 activityLabels[,2] <- as.character(activityLabels[,2])
@@ -96,4 +93,7 @@ allData.mean <- dcast(allData.melted, subject + activity ~ variable, mean)
 
 
 
+
 write.table(allData.mean, "tidy.txt", row.names = FALSE, quote = FALSE)
+
+makeCodebook(allData.mean)
